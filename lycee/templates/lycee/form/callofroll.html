@@ -1,0 +1,26 @@
+{% extends "master.html" %} {% load static %} 
+{% if eleves%}
+  {% block title %}
+  <h3>Call Of Roll</h3>
+  {% endblock %}
+
+  {% block content %} 
+
+   <form method="post">
+          {% csrf_token %}
+          Date : <input name="date" type="date" class="mt-3 mb-3" value="{{defaultdate|date:"Y-m-d" }}" required>
+          <br>
+          <!-- On appelle 'eleve' comme dans view --> 
+          {% for eleve in eleves %}
+            <input type="checkbox" id="{{eleve.id}}" name="eleve{{eleve.id}}" checked>
+            <label for="eleve{eleve.id}}">{{eleve.first_name }} {{eleve.last_name}}</label>
+            <br>
+          {% endfor %}
+          <p>Check if the student is present</p>
+          <div class="row">
+            <button class="btn btn-outline-primary mr-4"><a href="/lycee/">Cancel</a></button>
+            <button type="submit" class="btn btn-success radius d-flex">Submit</button>
+          </div>
+    </form>
+  {% endblock %}
+{% endif %}

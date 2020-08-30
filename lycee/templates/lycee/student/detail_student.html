@@ -1,0 +1,25 @@
+{% extends "master.html" %}
+
+
+{% if liste %}
+    {% block title %}
+        <h3>Details of a student</h3>
+    {% endblock %}
+
+    {% block content %}
+            <h3>{{liste.first_name }} {{liste.last_name}}</h3>
+            <ul>
+                <li>{{liste.birth_date}}</li>
+                <li>{{liste.phone}}</li>
+                <li>{{liste.email|lower}}</li>
+                <li>{{liste.cursus}}</li>
+            </ul>
+        <form method="POST" class="post-form">
+          {% csrf_token %}
+          {{form.as_p}}
+         <a class="btn btn-primary" href="{% url 'edition' liste.id %}">Edit Student Data</a>
+
+    {% endblock %}
+{% else %}
+     <p>No student to show.</p>
+{% endif %}
